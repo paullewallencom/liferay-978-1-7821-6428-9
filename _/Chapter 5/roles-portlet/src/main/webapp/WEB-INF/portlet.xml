@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd"
+	version="2.0">
+	<portlet>
+		<portlet-name>roles-portlet</portlet-name>
+		<display-name>roles-portlet</display-name>
+		<portlet-class>com.packtpub.portlet.RolesPortlet</portlet-class>
+		<init-param>
+			<name>view-administrator-template</name>
+			<value>/html/administrator.jsp</value>
+		</init-param>
+		<init-param>
+			<name>view-user-template</name>
+			<value>/html/user.jsp</value>
+		</init-param>
+		<init-param>
+			<name>view-guest-template</name>
+			<value>/html/guest.jsp</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<portlet-info>
+			<title>roles-portlet</title>
+			<short-title>roles-portlet</short-title>
+			<keywords>roles-portlet</keywords>
+		</portlet-info>
+		<security-role-ref>
+			<role-name>logged-user</role-name>
+		</security-role-ref>
+		<security-role-ref>
+			<role-name>guest-user</role-name>
+		</security-role-ref>
+	</portlet>
+</portlet-app>

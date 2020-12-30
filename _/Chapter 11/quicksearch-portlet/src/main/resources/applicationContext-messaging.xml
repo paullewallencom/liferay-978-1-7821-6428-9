@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<beans default-destroy-method="destroy" default-init-method="afterPropertiesSet"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+	<!-- Messaging - autocomplete -->
+	<util:constant id="destination.name.search.autocomplete"
+		static-field="com.liferay.guru.portlet.quicksearch.util.QSDestinationNames.SEARCH_AUTOCOMPLETE" />
+		
+	<bean id="messageListener.autocomplete.lucene" class="com.liferay.guru.search.lucene.AutocompleteListener" />	
+    
+    <bean id="destination.search.autocomplete"
+		class="com.liferay.portal.kernel.messaging.SynchronousDestination">
+		<property name="name" ref="destination.name.search.autocomplete" />
+	</bean>
+    
+    <!-- Configurator -->
+    <bean id="messagingConfigurator"
+		class="com.liferay.portal.kernel.messaging.config.PluginMessagingConfigurator">
+		<property name="messageListeners">
+			<map key-type="java.lang.String" value-type="java.util.List">
+				<entry key-ref="destination.name.search.autocomplete">
+					<list>
+						<ref bean="messageListener.autocomplete.lucene" />
+					</list>
+				</entry>
+			</map>
+		</property>
+		<property name="destinations">
+			<list>
+				<ref bean="destination.search.autocomplete" />
+			</list>
+		</property>
+	</bean>
+    
+</beans>
